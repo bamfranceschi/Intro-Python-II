@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -33,19 +34,34 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-#
-# Main
-#
+first_player = Player("Gandalf", room["outside"])
+print(f"Welcome, {first_player.name}, to the adventure of the ages. You are currently {first_player.current_room}.")
 
-# Make a new player object that is currently in the 'outside' room.
 
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+while True:
+    direction = input("Do you want to go north(n), south(s), east(e) or west(w)?")
+
+    if direction == "n":
+        first_player.current_room = first_player.current_room.n_to
+        print("\ncurrent room: %s \n\ndescription: %s\n" %(first_player.current_room.name, first_player.current_room.desc))
+    elif direction == "s":
+        first_player.current_room = first_player.current_room.s_to
+        print("\ncurrent room: %s \n\ndescription: %s\n" %(first_player.current_room.name, first_player.current_room.desc))
+    elif direction == "w":
+        first_player.current_room = first_player.current_room.w_to
+        print("\ncurrent room: %s \n\ndescription: %s\n" %(first_player.current_room.name, first_player.current_room.desc))
+    elif direction == "e":
+        first_player.current_room = first_player.current_room.e_to
+        print("\ncurrent room: %s \n\ndescription: %s\n" %(first_player.current_room.name, first_player.current_room.desc))
+    elif direction == "q":
+        print("Goodbye!")
+        quit()
+    else:
+        print("Please provide a direction or q to quit") 
+
+
+#for key, value in room.items():
+#     if first_player.in_room == key:
+#         print("\ncurrent room: %s \n\ndescription: %s\n" %(value.name, value.desc))
+
+# 
